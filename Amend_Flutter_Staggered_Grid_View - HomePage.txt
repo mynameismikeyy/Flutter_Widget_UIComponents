@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+class HomePage extends StatelessWidget {
+  final List<String> images = [
+    "https://picsum.photos/300/500?random=1",
+    "https://picsum.photos/300/400?random=2",
+    "https://picsum.photos/300/600?random=3",
+    "https://picsum.photos/300/450?random=4",
+    "https://picsum.photos/300/550?random=5",
+    "https://picsum.photos/300/350?random=6",
+    "https://picsum.photos/300/700?random=7",
+    "https://picsum.photos/300/300?random=8",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: Text("Pinterest Layout"),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.redAccent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MasonryGridView.count(
+          crossAxisCount: 2, // dalawang column (Pinterest style)
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            return PinterestCard(
+              imageUrl: images[index],
+              title: "Item ${index + 1}",
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class PinterestCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+
+  const PinterestCard({required this.imageUrl, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 6,
+      borderRadius: BorderRadius.circular(16),
+      clipBehavior: Clip.hardEdge,
+      child: Stack(
+        children: [
+          // Background Image
+          Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
+          // Gradient Overlay
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black.withOpacity(0.5),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            ),
+          ),
+          // Title Text
+          Positioned(
+            bottom: 10,
+            left: 10,
+            child: Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
