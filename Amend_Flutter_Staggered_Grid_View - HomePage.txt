@@ -16,24 +16,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[100], // CHANGED: light background
       appBar: AppBar(
-        title: Text("Pinterest Layout"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.redAccent,
+        title: Text("Pinterest Layout"), // CHANGED: custom title
+        centerTitle: true,               // CHANGED: title nasa gitna
+        elevation: 0,                    // CHANGED: no shadow appbar
+        backgroundColor: Colors.redAccent, // CHANGED: ibang kulay appbar
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0), // CHANGED: may padding sa paligid
         child: MasonryGridView.count(
-          crossAxisCount: 2, // dalawang column (Pinterest style)
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
+          crossAxisCount: 2, // CHANGED: 2-column Pinterest style
+          mainAxisSpacing: 10, // CHANGED: vertical spacing
+          crossAxisSpacing: 10, // CHANGED: horizontal spacing
           itemCount: images.length,
           itemBuilder: (context, index) {
             return PinterestCard(
               imageUrl: images[index],
-              title: "Item ${index + 1}",
+              title: "Item ${index + 1}", // CHANGED: dynamic title
             );
           },
         ),
@@ -51,21 +51,21 @@ class PinterestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 6,
-      borderRadius: BorderRadius.circular(16),
-      clipBehavior: Clip.hardEdge,
+      elevation: 6, // CHANGED: may shadow yung card
+      borderRadius: BorderRadius.circular(16), // CHANGED: rounded corners
+      clipBehavior: Clip.hardEdge, // CHANGED: para hindi lumampas yung image sa corners
       child: Stack(
         children: [
           // Background Image
           Image.network(
             imageUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.cover, // CHANGED: cover instead of default
           ),
           // Gradient Overlay
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
+                gradient: LinearGradient( // CHANGED: gradient overlay
                   colors: [
                     Colors.black.withOpacity(0.5),
                     Colors.transparent,
@@ -83,9 +83,9 @@ class PinterestCard extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+                color: Colors.white, // CHANGED: white text para kita sa image
+                fontSize: 16,        // CHANGED: mas malaking font
+                fontWeight: FontWeight.bold, // CHANGED: bold style
               ),
             ),
           )
